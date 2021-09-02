@@ -1,0 +1,9 @@
+8
+moria,10,2,6,AVENTURA
+minasTirith,5,2.5,25,PAISAJE
+laComarca,3,6.5,150,DEGUSTACION
+mordor,25,3,4,AVENTURA
+abismoDeHelm,5,2,15,PAISAJE
+lothlorien,35,1,30,DEGUSTACION
+erebor,12,3,32,PAISAJE
+bosqueNegro,3,4,12,AVENTURA

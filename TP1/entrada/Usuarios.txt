@@ -1,0 +1,5 @@
+4
+eowyn,AVENTURA,10,8
+gandalf,PAISAJE,100,5
+sam,DEGUSTACION,36,8
+galadriel,PAISAJE,120,6
