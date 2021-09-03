@@ -1,7 +1,9 @@
 package parqueDeAtracciones;
 
+import java.util.Arrays;
+
 public abstract class Promocion {
-	private String nombre;
+	protected String nombre;
 	protected Atraccion[] atracciones;
 
 	public Promocion(String nombre, Atraccion[] atracciones) {
@@ -16,8 +18,14 @@ public abstract class Promocion {
 		}
 		return precioTotal;
 	}
-	
+
 	public String getNombre() {
 		return this.nombre;
+	}
+
+	@Override
+	public String toString() {
+		return "Promocion [nombre=" + nombre + ", atracciones=" + Arrays.toString(atracciones) + ", precio="
+				+ this.calcularPrecio() + "]";
 	}
 }

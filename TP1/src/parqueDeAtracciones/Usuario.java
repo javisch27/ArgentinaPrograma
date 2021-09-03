@@ -28,4 +28,12 @@ public class Usuario {
 	public double getTiempoDisponible() {
 		return tiempoDisponible;
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [nombre=" + nombre + ", preferencia=" + preferencia + ", presupuesto=" + presupuesto
+				+ ", tiempoDisponible=" + tiempoDisponible + "]";
+	}
+	
+	
 }

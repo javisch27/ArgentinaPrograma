@@ -34,4 +34,10 @@ public class Atraccion {
 	public TipoDeAtraccion getTipo() {
 		return tipo;
 	}
+
+	@Override
+	public String toString() {
+		return "Atraccion [nombre=" + nombre + ", costo=" + costo + ", duracion=" + duracion + ", cupo=" + cupo
+				+ ", tipo=" + tipo + "]";
+	}
 }

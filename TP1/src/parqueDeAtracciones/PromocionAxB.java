@@ -1,13 +1,15 @@
 package parqueDeAtracciones;
 
 public class PromocionAxB extends Promocion {
+	private Atraccion atraccionGratuita;
 
-	public PromocionAxB(String nombre, Atraccion[] atracciones) {
+	public PromocionAxB(String nombre, Atraccion[] atracciones, Atraccion atraccionGratuita) {
 		super(nombre, atracciones);
+		this.atraccionGratuita = atraccionGratuita;
 	}
-	
+
 	@Override
-	public int calcularPrecio() {
-		return super.calcularPrecio() - atracciones[atracciones.length - 1].getCosto();
+	public String toString() {
+		return super.toString() + "[atraccionGratuita=" + atraccionGratuita + "]";
 	}
 }

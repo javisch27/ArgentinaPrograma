@@ -25,10 +25,11 @@ public abstract class LectorDeArchivos {
 				String[] datosAtracciones = linea.split(",");
 				String nombre = datosAtracciones[0];
 				int costo = Integer.parseInt(datosAtracciones[1]);
-				double duracion = Integer.parseInt(datosAtracciones[2]);
+				double duracion = Double.parseDouble(datosAtracciones[2]);
 				int cupo = Integer.parseInt(datosAtracciones[3]);
-				TipoDeAtraccion tipo = datosAtracciones[4];
-				atracciones[indice++] = new Atraccion(nombre, costo, duracion, cupo, tipo);
+				String tipoDeAtraccion = datosAtracciones[4];
+				atracciones[indice++] = new Atraccion(nombre, costo, duracion, cupo,
+						TipoDeAtraccion.valueOf(tipoDeAtraccion.toUpperCase()));
 				linea = br.readLine();
 			}
 
@@ -49,7 +50,7 @@ public abstract class LectorDeArchivos {
 
 		return atracciones;
 	}
-	
+
 	public static Usuario[] obtenerUsuariosDesdeArchivo() {
 		File archivo = null;
 		FileReader fr = null;
@@ -70,10 +71,11 @@ public abstract class LectorDeArchivos {
 			while (linea != null) {
 				String[] datosUsuarios = linea.split(",");
 				String nombre = datosUsuarios[0];
-				TipoDeAtraccion preferencia = datosUsuarios[1];
+				String preferencia = datosUsuarios[1];
 				int presupuesto = Integer.parseInt(datosUsuarios[2]);
-				double tiempoDisponible = Integer.parseInt(datosUsuarios[3]);
-				usuarios[indice++] = new Usuario(nombre, preferencia, presupuesto, tiempoDisponible);
+				double tiempoDisponible = Double.parseDouble(datosUsuarios[3]);
+				usuarios[indice++] = new Usuario(nombre, TipoDeAtraccion.valueOf(preferencia.toUpperCase()),
+						presupuesto, tiempoDisponible);
 				linea = br.readLine();
 			}
 
@@ -95,7 +97,7 @@ public abstract class LectorDeArchivos {
 		return usuarios;
 	}
 
-	public static Promocion[] obtenerPromosDesdeArchivo(ParqueDeAtraccion parque) {
+	public static Promocion[] obtenerPromosDesdeArchivo(ParqueDeAtraccion parqueDeAtraccion) {
 		File archivo = null;
 		FileReader fr = null;
 		BufferedReader br = null;
@@ -116,30 +118,28 @@ public abstract class LectorDeArchivos {
 				String[] datosPromos = linea.split(";");
 				String tipoPromocion = datosPromos[0];
 				String nombre = datosPromos[1];
-				
+
 				String[] atraccionesString = datosPromos[2].split(",");
 				Atraccion[] atracciones = new Atraccion[atraccionesString.length];
 				for (int i = 0; i < atraccionesString.length; i++) {
-					atracciones[i] = tierraMedia.obtenerAtraccionPorNombre(atraccionesString[i]);
+					atracciones[i] = parqueDeAtraccion.obtenerAtraccionPorNombre(atraccionesString[i]);
 				}
 				
-				int descuentoOPrecio;
-				if(atracciones.length == 4) {
-					descuentoOPrecio = Integer.parseInt(datosPromos[3]);
+				/*if (tipoPromocion == "PromocionPorcentual") {
+					int descuento = Integer.parseInt(datosPromos[3]);
+					promociones[indice++] = new PromocionPorcentual(nombre, atracciones, descuento);
 				}
-				if(tipoPromocion == "PromocionPorcentual") {
-					promociones[indice++] = new PromocionPorcentual(nombre, atracciones, descuentoOPrecio);
+				if (tipoPromocion == "PromocionAbsoluta") {
+					int precio = Integer.parseInt(datosPromos[3]);
+					promociones[indice++] = new PromocionAbsoluta(nombre, atracciones, precio);
 				}
-				if(tipoPromocion == "PromocionAbsoluta") {
-					promociones[indice++] = new PromocionAbsoluta(nombre, atracciones, descuentoOPrecio);
-				}
-				if(tipoPromocion == "PromocionAxB") {
-					promociones[indice++] = new PromocionAxB(nombre, atracciones);
-				}
-				
+				if (tipoPromocion == "PromocionAxB") {
+					Atraccion atraccionGratuita = parqueDeAtraccion.obtenerAtraccionPorNombre(datosPromos[3]);
+					promociones[indice++] = new PromocionAxB(nombre, atracciones, atraccionGratuita);
+				}*/
+				//promociones[indice++] = new Promocion(nombre, atracciones);
 				linea = br.readLine();
 			}
-
 			return promociones;
 
 		} catch (IOException e) {

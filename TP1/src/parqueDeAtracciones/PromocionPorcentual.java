@@ -10,6 +10,6 @@ public class PromocionPorcentual extends Promocion {
 
 	@Override
 	public int calcularPrecio() {
-		return super.calcularPrecio() * this.porcentajeDescuento / 100;
+		return Math.round(super.calcularPrecio() * this.porcentajeDescuento / 100);
 	}
 }

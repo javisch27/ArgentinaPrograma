@@ -1,23 +1,25 @@
 package parqueDeAtracciones;
 
+import java.util.Arrays;
+
 public class ParqueDeAtraccion {
 	private Usuario[] usuarios;
 	private Atraccion[] atracciones;
 	private Promocion[] promociones;
 	
-	public void agregarTodosUsuarios() {
-		
+	public void agregarTodosUsuarios(Usuario[] usuarios) {
+		this.usuarios = usuarios;
 	}
 	
-	public void agregarTodasAtracciones() {
-		
+	public void agregarTodasAtracciones(Atraccion[] atracciones) {
+		this.atracciones = atracciones;
 	}
 	
-	public void agregarTodasPromociones() {
-		
+	public void agregarTodasPromociones(Promocion[] promociones) {
+		this.promociones = promociones;
 	}
 	
-	public void sugerirAtraccion() {
+	public void proponerAtraccion() {
 		
 	}
 	
@@ -28,5 +30,11 @@ public class ParqueDeAtraccion {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public String toString() {
+		return "ParqueDeAtraccion [usuarios=" + Arrays.toString(usuarios) + ", atracciones="
+				+ Arrays.toString(atracciones) + ", promociones=" + Arrays.toString(promociones) + "]";
 	}
 }
