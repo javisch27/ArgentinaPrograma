@@ -20,7 +20,7 @@ public class ParqueDeAtraccion {
 	}
 	
 	public void proponerAtraccion() {
-		
+		//Falta método
 	}
 	
 	public Atraccion obtenerAtraccionPorNombre(String nombre) {

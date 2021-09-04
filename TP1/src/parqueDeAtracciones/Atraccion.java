@@ -1,6 +1,6 @@
 package parqueDeAtracciones;
 
-public class Atraccion {
+public class Atraccion implements Ofertable {
 	private String nombre;
 	private int costo;
 	private double duracion;
@@ -22,7 +22,8 @@ public class Atraccion {
 	public String getNombre() {
 		return nombre;
 	}
-
+	
+	@Override
 	public double getDuracion() {
 		return duracion;
 	}
@@ -31,7 +32,8 @@ public class Atraccion {
 		return cupo;
 	}
 
-	public TipoDeAtraccion getTipo() {
+	@Override
+	public TipoDeAtraccion getTipoDeAtraccion() {
 		return tipo;
 	}
 
@@ -39,5 +41,15 @@ public class Atraccion {
 	public String toString() {
 		return "Atraccion [nombre=" + nombre + ", costo=" + costo + ", duracion=" + duracion + ", cupo=" + cupo
 				+ ", tipo=" + tipo + "]";
+	}
+
+	@Override
+	public boolean esPromocion() {
+		return false;
+	}
+	//Este último método no está terminado
+	@Override
+	public boolean puedeSerOfertada(Usuario usuario) {
+		return false;
 	}
 }

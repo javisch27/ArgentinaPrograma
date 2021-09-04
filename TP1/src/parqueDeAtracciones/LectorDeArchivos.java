@@ -124,8 +124,8 @@ public abstract class LectorDeArchivos {
 				for (int i = 0; i < atraccionesString.length; i++) {
 					atracciones[i] = parqueDeAtraccion.obtenerAtraccionPorNombre(atraccionesString[i]);
 				}
-				
-				/*if (tipoPromocion == "PromocionPorcentual") {
+				//Esta parte no funciona (creo que es el if)
+				if (tipoPromocion == "PromocionPorcentual") {
 					int descuento = Integer.parseInt(datosPromos[3]);
 					promociones[indice++] = new PromocionPorcentual(nombre, atracciones, descuento);
 				}
@@ -136,7 +136,7 @@ public abstract class LectorDeArchivos {
 				if (tipoPromocion == "PromocionAxB") {
 					Atraccion atraccionGratuita = parqueDeAtraccion.obtenerAtraccionPorNombre(datosPromos[3]);
 					promociones[indice++] = new PromocionAxB(nombre, atracciones, atraccionGratuita);
-				}*/
+				}
 				//promociones[indice++] = new Promocion(nombre, atracciones);
 				linea = br.readLine();
 			}
