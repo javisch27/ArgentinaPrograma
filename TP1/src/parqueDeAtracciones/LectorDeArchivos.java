@@ -72,10 +72,10 @@ public abstract class LectorDeArchivos {
 				String[] datosUsuarios = linea.split(",");
 				String nombre = datosUsuarios[0];
 				String preferencia = datosUsuarios[1];
-				int presupuesto = Integer.parseInt(datosUsuarios[2]);
-				double tiempoDisponible = Double.parseDouble(datosUsuarios[3]);
+				int presupuestoInicial = Integer.parseInt(datosUsuarios[2]);
+				double tiempoInicial = Double.parseDouble(datosUsuarios[3]);
 				usuarios[indice++] = new Usuario(nombre, TipoDeAtraccion.valueOf(preferencia.toUpperCase()),
-						presupuesto, tiempoDisponible);
+						presupuestoInicial, tiempoInicial);
 				linea = br.readLine();
 			}
 
@@ -124,20 +124,18 @@ public abstract class LectorDeArchivos {
 				for (int i = 0; i < atraccionesString.length; i++) {
 					atracciones[i] = parqueDeAtraccion.obtenerAtraccionPorNombre(atraccionesString[i]);
 				}
-				//Esta parte no funciona (creo que es el if)
-				if (tipoPromocion == "PromocionPorcentual") {
+
+				if (tipoPromocion.equals("PromocionPorcentual")) {
 					int descuento = Integer.parseInt(datosPromos[3]);
 					promociones[indice++] = new PromocionPorcentual(nombre, atracciones, descuento);
-				}
-				if (tipoPromocion == "PromocionAbsoluta") {
-					int precio = Integer.parseInt(datosPromos[3]);
-					promociones[indice++] = new PromocionAbsoluta(nombre, atracciones, precio);
-				}
-				if (tipoPromocion == "PromocionAxB") {
+				} else if (tipoPromocion.equals("PromocionAbsoluta")) {
+					int costo = Integer.parseInt(datosPromos[3]);
+					promociones[indice++] = new PromocionAbsoluta(nombre, atracciones, costo);
+				} else if (tipoPromocion.equals("PromocionAxB")) {
 					Atraccion atraccionGratuita = parqueDeAtraccion.obtenerAtraccionPorNombre(datosPromos[3]);
 					promociones[indice++] = new PromocionAxB(nombre, atracciones, atraccionGratuita);
 				}
-				//promociones[indice++] = new Promocion(nombre, atracciones);
+
 				linea = br.readLine();
 			}
 			return promociones;

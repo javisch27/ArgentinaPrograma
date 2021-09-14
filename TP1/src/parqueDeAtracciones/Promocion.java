@@ -1,7 +1,5 @@
 package parqueDeAtracciones;
 
-import java.util.Arrays;
-
 public abstract class Promocion implements Ofertable {
 	protected String nombre;
 	protected Atraccion[] atracciones;
@@ -11,24 +9,18 @@ public abstract class Promocion implements Ofertable {
 		this.atracciones = atracciones;
 	}
 
-	public int calcularPrecio() {
-		int precioTotal = 0;
+	public int getCosto() {
+		int costoTotal = 0;
 		for (Atraccion atraccion : this.atracciones) {
-			precioTotal += atraccion.getCosto();
+			costoTotal += atraccion.getCosto();
 		}
-		return precioTotal;
+		return costoTotal;
 	}
 
 	public String getNombre() {
 		return this.nombre;
 	}
 
-	@Override
-	public String toString() {
-		return "Promocion [nombre=" + nombre + ", atracciones=" + Arrays.toString(atracciones) + ", precio="
-				+ this.calcularPrecio() + "]";
-	}
-	
 	@Override
 	public double getDuracion() {
 		double duracionTotal = 0;
@@ -39,22 +31,52 @@ public abstract class Promocion implements Ofertable {
 	}
 	
 	@Override
+	public TipoDeAtraccion getTipoDeAtraccion() {
+		return atracciones[0].getTipoDeAtraccion();
+	}
+
+	@Override
 	public boolean esPromocion() {
 		return true;
 	}
-	//Estos últimos dos métodos no están terminados
+
+	public boolean cupoDisponibleEnTodasAtracciones() {
+		for (int i = 0; i < atracciones.length; i++) {
+			if (atracciones[i].getCupo() <= 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public boolean puedeSerOfertada(Usuario usuario) {
-		return false;
+		return this.cupoDisponibleEnTodasAtracciones() && usuario.getTiempoDisponible() >= this.getDuracion()
+				&& usuario.getPresupuesto() >= this.getCosto();
+	}
+
+	@Override
+	public void restarCupo() {
+		for (Atraccion atraccion : this.atracciones) {
+			atraccion.restarCupo();
+		}
+	}
+
+	private String getNombreDeAtracciones() {
+		String nombreDeTodasAtracciones = "";
+		for (int i = 0; i < atracciones.length; i++) {
+			nombreDeTodasAtracciones += atracciones[i].getNombre();
+			if (i < atracciones.length - 1) {
+				nombreDeTodasAtracciones += ", ";
+			}
+		}
+		return nombreDeTodasAtracciones;
 	}
 	
 	@Override
-	public TipoDeAtraccion getTipoDeAtraccion() {
-		TipoDeAtraccion[] tiposDeAtracciones;
-		tiposDeAtracciones = new TipoDeAtraccion[atracciones.length];
-		for (int i=0; i < tiposDeAtracciones.length; i++) {
-			tiposDeAtracciones[i] = atracciones[i].getTipoDeAtraccion();
-		}
-		return tiposDeAtracciones[0];
+	public String toString() {
+		return "Promoción= " + nombre + "\n" + "Atracciones= " + this.getNombreDeAtracciones() + "\n" + "Costo= "
+				+ this.getCosto() + "\n" + "Duración= " + this.getDuracion() + "\n" + "Tipo= "
+				+ this.getTipoDeAtraccion() + "\n";
 	}
 }

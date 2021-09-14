@@ -1,15 +1,15 @@
 package parqueDeAtracciones;
 
 public class PromocionAbsoluta extends Promocion {
-	private int precio;
+	private int costo;
 
-	public PromocionAbsoluta(String nombre, Atraccion[] atracciones, int precio) {
+	public PromocionAbsoluta(String nombre, Atraccion[] atracciones, int costo) {
 		super(nombre, atracciones);
-		this.precio = precio;
+		this.costo = costo;
 	}
 
 	@Override
-	public int calcularPrecio() {
-		return this.precio;
+	public int getCosto() {
+		return this.costo;
 	}
 }

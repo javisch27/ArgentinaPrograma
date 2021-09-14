@@ -7,9 +7,22 @@ public class PromocionAxB extends Promocion {
 		super(nombre, atracciones);
 		this.atraccionGratuita = atraccionGratuita;
 	}
-
+	
 	@Override
 	public String toString() {
-		return super.toString() + "[atraccionGratuita=" + atraccionGratuita + "]";
+		return super.toString() + "\n" + "Atracción gratuita= " + this.atraccionGratuita.getNombre();
+	}
+	
+	@Override
+	public double getDuracion() {
+		return super.getDuracion() + this.atraccionGratuita.getDuracion();
+	}
+	
+	@Override
+	public boolean cupoDisponibleEnTodasAtracciones() {
+		if(this.atraccionGratuita.getCupo() <= 0) {
+			return false;
+		}
+		return super.cupoDisponibleEnTodasAtracciones();
 	}
 }

@@ -3,14 +3,14 @@ package parqueDeAtracciones;
 public class Usuario {
 	private String nombre;
 	private TipoDeAtraccion preferencia;
-	private int presupuesto;
+	private int presupuestoDisponible;
 	private double tiempoDisponible;
 
-	public Usuario(String nombre, TipoDeAtraccion preferencia, int presupuesto, double tiempoDisponible) {
+	public Usuario(String nombre, TipoDeAtraccion preferencia, int presupuestoInicial, double tiempoInicial) {
 		this.nombre = nombre;
 		this.preferencia = preferencia;
-		this.presupuesto = presupuesto;
-		this.tiempoDisponible = tiempoDisponible;
+		this.presupuestoDisponible = presupuestoInicial;
+		this.tiempoDisponible = tiempoInicial;
 	}
 
 	public String getNombre() {
@@ -22,18 +22,22 @@ public class Usuario {
 	}
 
 	public int getPresupuesto() {
-		return presupuesto;
+		return presupuestoDisponible;
 	}
 
 	public double getTiempoDisponible() {
 		return tiempoDisponible;
 	}
+	
+	public void aceptarOferta(Ofertable ofertable) {
+		this.presupuestoDisponible -= ofertable.getCosto();
+		this.tiempoDisponible -= ofertable.getDuracion();
+		ofertable.restarCupo();
+	}
 
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", preferencia=" + preferencia + ", presupuesto=" + presupuesto
-				+ ", tiempoDisponible=" + tiempoDisponible + "]";
+		return "Presupuesto disponible= " + presupuestoDisponible
+				+ ", tiempoDisponible= " + tiempoDisponible;
 	}
-	
-	
 }

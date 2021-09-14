@@ -14,7 +14,7 @@ public class Atraccion implements Ofertable {
 		this.cupo = cupo;
 		this.tipo = tipo;
 	}
-	
+
 	public int getCosto() {
 		return this.costo;
 	}
@@ -22,7 +22,7 @@ public class Atraccion implements Ofertable {
 	public String getNombre() {
 		return nombre;
 	}
-	
+
 	@Override
 	public double getDuracion() {
 		return duracion;
@@ -32,24 +32,29 @@ public class Atraccion implements Ofertable {
 		return cupo;
 	}
 
-	@Override
 	public TipoDeAtraccion getTipoDeAtraccion() {
-		return tipo;
-	}
-
-	@Override
-	public String toString() {
-		return "Atraccion [nombre=" + nombre + ", costo=" + costo + ", duracion=" + duracion + ", cupo=" + cupo
-				+ ", tipo=" + tipo + "]";
+		return this.tipo;
 	}
 
 	@Override
 	public boolean esPromocion() {
 		return false;
 	}
-	//Este último método no está terminado
+
 	@Override
 	public boolean puedeSerOfertada(Usuario usuario) {
-		return false;
+		return this.cupo > 0 && usuario.getTiempoDisponible() >= this.duracion
+				&& usuario.getPresupuesto() >= this.costo;
+	}
+
+	@Override
+	public void restarCupo() {
+		this.cupo--;
+	}
+	
+	@Override
+	public String toString() {
+		return "Atracción= " + nombre + "\n" + "Costo= " + costo + "\n" + "Duración= " + duracion + "\n" + "Tipo= "
+				+ tipo + "\n";
 	}
 }
