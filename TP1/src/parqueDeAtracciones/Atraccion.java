@@ -1,5 +1,7 @@
 package parqueDeAtracciones;
 
+import java.util.Objects;
+
 public class Atraccion implements Ofertable {
 	private String nombre;
 	private int costo;
@@ -15,6 +17,7 @@ public class Atraccion implements Ofertable {
 		this.tipo = tipo;
 	}
 
+	@Override
 	public int getCosto() {
 		return this.costo;
 	}
@@ -32,6 +35,7 @@ public class Atraccion implements Ofertable {
 		return cupo;
 	}
 
+	@Override
 	public TipoDeAtraccion getTipoDeAtraccion() {
 		return this.tipo;
 	}
@@ -56,5 +60,24 @@ public class Atraccion implements Ofertable {
 	public String toString() {
 		return "Atracción= " + nombre + "\n" + "Costo= " + costo + "\n" + "Duración= " + duracion + "\n" + "Tipo= "
 				+ tipo + "\n";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(costo, cupo, duracion, nombre, tipo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Atraccion other = (Atraccion) obj;
+		return costo == other.costo && cupo == other.cupo
+				&& Double.doubleToLongBits(duracion) == Double.doubleToLongBits(other.duracion)
+				&& Objects.equals(nombre, other.nombre) && tipo == other.tipo;
 	}
 }

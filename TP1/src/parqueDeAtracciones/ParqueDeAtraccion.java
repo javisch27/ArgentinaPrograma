@@ -62,4 +62,27 @@ public class ParqueDeAtraccion {
 	public Promocion[] getPromociones() {
 		return promociones;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(atracciones);
+		result = prime * result + Arrays.hashCode(promociones);
+		result = prime * result + Arrays.hashCode(usuarios);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ParqueDeAtraccion other = (ParqueDeAtraccion) obj;
+		return Arrays.equals(atracciones, other.atracciones) && Arrays.equals(promociones, other.promociones)
+				&& Arrays.equals(usuarios, other.usuarios);
+	}
 }

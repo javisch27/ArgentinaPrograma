@@ -1,10 +1,14 @@
 package parqueDeAtraccciones;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import parqueDeAtracciones.Atraccion;
+import parqueDeAtracciones.LectorDeArchivos;
 import parqueDeAtracciones.ParqueDeAtraccion;
 import parqueDeAtracciones.Promocion;
 import parqueDeAtracciones.PromocionAbsoluta;
@@ -17,21 +21,9 @@ import parqueDeAtracciones.Ofertable;
 public class ParqueDeAtraccionesTests {
 
 	ParqueDeAtraccion tierraMedia;
-	Atraccion moria;
-	Atraccion minasTirith;
-	Atraccion laComarca;
-	Atraccion mordor;
-	Atraccion abismoDeHelm;
-	Atraccion lothlorien;
-	Atraccion erebor;
-	Atraccion bosqueNegro;
-	Promocion packAventura;
-	Promocion packDegustacion;
-	Promocion packPaisajes;
-	Usuario eowyn;
-	Usuario gandalf;
-	Usuario sam;
-	Usuario galadriel;
+	Atraccion moria, minasTirith, laComarca, mordor, abismoDeHelm, lothlorien, erebor, bosqueNegro;
+	Promocion packAventura, packDegustacion, packPaisajes;
+	Usuario eowyn, gandalf, sam, galadriel;
 
 	@Before
 	public void setup() {
@@ -59,7 +51,6 @@ public class ParqueDeAtraccionesTests {
 		tierraMedia.agregarTodasAtracciones(new Atraccion[] { moria, minasTirith, laComarca, mordor, abismoDeHelm,
 				lothlorien, erebor, bosqueNegro });
 		tierraMedia.agregarTodasPromociones(new Promocion[] { packAventura, packDegustacion, packPaisajes });
-		tierraMedia.juntarOfertables();
 	}
 
 	@Test
@@ -81,115 +72,143 @@ public class ParqueDeAtraccionesTests {
 
 	@Test
 	public void juntarOfertablesTest() {
+		tierraMedia.juntarOfertables();
 		assertArrayEquals((new Ofertable[] { moria, minasTirith, laComarca, mordor, abismoDeHelm, lothlorien, erebor,
 				bosqueNegro, packAventura, packDegustacion, packPaisajes }), tierraMedia.getOfertables());
 	}
 
 	@Test
 	public void queOrdenaSegunPrioridadTest() {
+		tierraMedia.juntarOfertables();
 		tierraMedia.ordenarSegunPrioridadA(eowyn);
 		assertArrayEquals((new Ofertable[] { packAventura, mordor, moria, bosqueNegro, packDegustacion, packPaisajes,
-				lothlorien, erebor, minasTirith, abismoDeHelm, laComarca}), tierraMedia.getOfertables());
+				lothlorien, erebor, minasTirith, abismoDeHelm, laComarca }), tierraMedia.getOfertables());
+		tierraMedia.ordenarSegunPrioridadA(gandalf);
+		assertArrayEquals((new Ofertable[] { packPaisajes, erebor, minasTirith, abismoDeHelm, packDegustacion,
+				packAventura, lothlorien, mordor, moria, laComarca, bosqueNegro }), tierraMedia.getOfertables());
+		tierraMedia.ordenarSegunPrioridadA(sam);
+		assertArrayEquals((new Ofertable[] { packDegustacion, lothlorien, laComarca, packAventura, packPaisajes, mordor,
+				erebor, moria, minasTirith, abismoDeHelm, bosqueNegro }), tierraMedia.getOfertables());
+		tierraMedia.ordenarSegunPrioridadA(galadriel);
+		assertArrayEquals((new Ofertable[] { packPaisajes, erebor, minasTirith, abismoDeHelm, packDegustacion,
+				packAventura, lothlorien, mordor, moria, laComarca, bosqueNegro }), tierraMedia.getOfertables());
 	}
-	
+
 	@Test
 	public void queObtieneAtraccionPorNombreTest() {
 		assertEquals(bosqueNegro, tierraMedia.obtenerAtraccionPorNombre("bosqueNegro"));
 	}
-	
+
 	@Test
 	public void queAtraccionNoEsPromocionTest() {
-		assertEquals(mordor.esPromocion(), false);
+		assertEquals(false, mordor.esPromocion());
 	}
-	
+
 	@Test
 	public void queAtraccionPuedenSerOfertadaTest() {
-		assertEquals(mordor.puedeSerOfertada(galadriel), true);
+		assertEquals(true, mordor.puedeSerOfertada(galadriel));
 	}
-	
+
 	@Test
 	public void queAtraccionNoPuedenSerOfertadaTest() {
-		assertEquals(lothlorien.puedeSerOfertada(eowyn), false);
+		assertEquals(false, lothlorien.puedeSerOfertada(eowyn));
 	}
-	
+
 	@Test
 	public void queAtraccionRestaCupoTest() {
 		moria.restarCupo();
-		assertEquals(moria.getCupo(), 5);
+		assertEquals(5, moria.getCupo());
 	}
-	
+
 	@Test
 	public void quePromocionPorcentualCalculaCostoTest() {
-		assertEquals(packAventura.getCosto(), 22);
+		assertEquals(22, packAventura.getCosto());
 	}
-	
+
 	@Test
 	public void quePromocionAbsolutaCalculaCostoTest() {
-		assertEquals(packDegustacion.getCosto(), 36);
+		assertEquals(36, packDegustacion.getCosto());
 	}
-	
+
 	@Test
 	public void quePromocionAxBCalculaCostoTest() {
-		assertEquals(packPaisajes.getCosto(), 10);
+		assertEquals(10, packPaisajes.getCosto());
 	}
-	
+
 	@Test
 	public void quePromocionPorcentualCalculaDuracionTest() {
-		assertEquals(packAventura.getDuracion(), 7, 0);
+		assertEquals(7, packAventura.getDuracion(), 0);
 	}
-	
+
 	@Test
 	public void quePromocionAbsolutaCalculaDuracionTest() {
-		assertEquals(packDegustacion.getDuracion(), 7.5, 0);
+		assertEquals(7.5, packDegustacion.getDuracion(), 0);
 	}
-	
+
 	@Test
 	public void quePromocionAxBCalculaDuracionTest() {
-		assertEquals(packPaisajes.getDuracion(), 7.5, 0);
+		assertEquals(7.5, packPaisajes.getDuracion(), 0);
 	}
-	
+
 	@Test
 	public void quePromocionEsPromocionTest() {
-		assertEquals(packPaisajes.esPromocion(), true);
+		assertEquals(true, packPaisajes.esPromocion());
 	}
-	
+
 	@Test
 	public void quehayCupoDisponibleEnTodasAtraccionesTest() {
-		assertEquals(packPaisajes.cupoDisponibleEnTodasAtracciones(), true);
+		assertEquals(true, packPaisajes.cupoDisponibleEnTodasAtracciones());
 	}
-	
+
 	@Test
 	public void quePromocionPuedenSerOfertadaTest() {
-		assertEquals(packDegustacion.puedeSerOfertada(sam), true);
+		assertEquals(true, packDegustacion.puedeSerOfertada(sam));
 	}
-	
+
 	@Test
 	public void quePromocionNoPuedenSerOfertadaTest() {
-		assertEquals(packDegustacion.puedeSerOfertada(eowyn), false);
+		assertEquals(false, packDegustacion.puedeSerOfertada(eowyn));
 	}
-	
+
 	@Test
 	public void quePromocionRestaCupoTest() {
 		packAventura.restarCupo();
-		assertEquals(bosqueNegro.getCupo(), 11);
-		assertEquals(mordor.getCupo(), 3);
+		assertEquals(11, bosqueNegro.getCupo());
+		assertEquals(3, mordor.getCupo());
 	}
-	
+
 	@Test
 	public void queUsuarioRestaPresupuestoAlAceptarOfertaTest() {
 		eowyn.aceptarOferta(abismoDeHelm);
-		assertEquals(eowyn.getPresupuesto(), 5);
+		assertEquals(5, eowyn.getPresupuesto());
 	}
-	
+
 	@Test
 	public void queUsuarioRestaTiempoAlAceptarOfertaTest() {
 		eowyn.aceptarOferta(abismoDeHelm);
-		assertEquals(eowyn.getTiempoDisponible(), 6, 0);
+		assertEquals(6, eowyn.getTiempoDisponible(), 0);
 	}
-	
+
 	@Test
 	public void queOfertableRestaCupoAlAceptarOfertaTest() {
 		eowyn.aceptarOferta(abismoDeHelm);
-		assertEquals(abismoDeHelm.getCupo(), 14);
+		assertEquals(14, abismoDeHelm.getCupo());
+	}
+	
+	@Test
+	public void queLeeDelArchivoTest() {
+		ParqueDeAtraccion tierraMedia2 = new ParqueDeAtraccion();
+		tierraMedia2.agregarTodasAtracciones(LectorDeArchivos.obtenerAtraccionesDesdeArchivo());
+		tierraMedia2.agregarTodosUsuarios(LectorDeArchivos.obtenerUsuariosDesdeArchivo());
+		tierraMedia2.agregarTodasPromociones(LectorDeArchivos.obtenerPromosDesdeArchivo(tierraMedia2));
+		assertArrayEquals(tierraMedia.getAtracciones(), tierraMedia2.getAtracciones());
+		assertArrayEquals(tierraMedia.getPromociones(), tierraMedia2.getPromociones());
+		assertArrayEquals(tierraMedia.getUsuarios(), tierraMedia2.getUsuarios());
+		assertEquals(tierraMedia, tierraMedia2);
+	}
+	
+	@Test
+	public void queEscribeArchivoTest() throws IOException {
+		
 	}
 }
