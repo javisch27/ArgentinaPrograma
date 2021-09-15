@@ -1,0 +1,4 @@
+3
+PromocionPorcentual;Pack Aventura;bosqueNegro,mordor;20
+PromocionAbsoluta;Pack Degustación;lothlorien,laComarca;36
+PromocionAxB;Pack Paisajes;minasTirith,abismoDeHelm;erebor
