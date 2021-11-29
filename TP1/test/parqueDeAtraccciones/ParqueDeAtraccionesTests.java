@@ -2,8 +2,6 @@ package parqueDeAtraccciones;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -205,10 +203,5 @@ public class ParqueDeAtraccionesTests {
 		assertArrayEquals(tierraMedia.getPromociones(), tierraMedia2.getPromociones());
 		assertArrayEquals(tierraMedia.getUsuarios(), tierraMedia2.getUsuarios());
 		assertEquals(tierraMedia, tierraMedia2);
-	}
-	
-	@Test
-	public void queEscribeArchivoTest() throws IOException {
-		
 	}
 }

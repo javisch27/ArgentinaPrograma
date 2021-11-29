@@ -1,14 +1,14 @@
 Gandalf, has seleccionado la/s siguiente/s promocion/es y/o atraccion/es:
 
-[Atracción= minasTirith
-Costo= 5
-Duración= 2.5
+[Atracción= erebor
+Costo= 12
+Duración= 3.0
 Tipo= PAISAJE
-, Atracción= lothlorien
-Costo= 35
-Duración= 1.0
-Tipo= DEGUSTACION
+, Atracción= abismoDeHelm
+Costo= 5
+Duración= 2.0
+Tipo= PAISAJE
 ]
 
-Costo Total= 40
-Tiempo total a utilizar= 3.5
+Costo Total= 17
+Tiempo total a utilizar= 5.0
