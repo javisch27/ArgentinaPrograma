@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+.titulo-destacado {
+	color: white;
+	letter-spacing: 10px;
+	text-align: center;
+}
+
+.enlace:hover {
+	color: red;
+}
+
+p {
+	font-size: 20px;
+	text-align: center;
+}
+
+body {
+	margin: 0;
+}
+
+main {
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+section {
+	margin-top: 100px;
+	width: 85%;
+	float: left;
+}
+
+aside {
+	margin-top: 100px;
+	width: 15%;
+	float: left;
+}
+
+aside li {
+	padding: 10px;
+	font-size: 20px;
+}
+
+h1 {
+	position: fixed;
+	width: 100%;
+	background: black;
+}
